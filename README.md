@@ -1,3 +1,5 @@
+![alt text](https://cdn.discordapp.com/attachments/693807726555561984/882233354500587530/unknown.png)
+
 # MTBots-Lite for AGHL
 
 Attempt to recreate MultiTrainer bots by naz. For AMX Mod X. 

@@ -13,6 +13,7 @@ MADE FOR MOD "ADRENALINE GAMER".    */
 #define VERSION	"1.0"
 
 new is_bot[32]
+new g_iOrigin[33][3]
 
 public plugin_init()
 {
@@ -69,10 +70,9 @@ public MTBot_Make()
 		engfunc(EngFunc_RunPlayerMove, id_bot, Float:{0.0,0.0,0.0}, 0.0, 0.0, 0.0, 0, 0, 76)
 		set_pev(id_bot, pev_velocity, Float:{0.625,-235.5,0.0})
 		engfunc(EngFunc_RunPlayerMove, id_bot, Float:{20.4425,270.4504,0.0}, 250.0, 0.0, 0.0, 0, 8, 10)
-		pev(id_bot, pev_origin, 1.0)
-		pev(id_bot, pev_velocity, 320.0)
 		hl_user_spawn(id_bot)
 		engfunc(EngFunc_DropToFloor, id_bot)
+		pev(id_bot, pev_origin, 1.0);
 		hl_set_user_team(id_bot, "red")
 		set_pev(id_bot, pev_effects, (pev(id_bot, pev_effects) | 1 ))
 		set_pev(id_bot, pev_solid, SOLID_BBOX)
@@ -109,7 +109,7 @@ public YesVote(id)
 		if (str_to_num(is_bot) != 0) {
 			engclient_cmd(players[i], "yes")
 			set_hudmessage(255, 0, 0, -1.0, 0.05, 0, 3.0, 4.0)
-			show_hudmessage(0, "AUTOVOTE FUNCTION")
+			show_hudmessage(0, "Bot auto-voted agstart !!!")
 		}
 	}
 }

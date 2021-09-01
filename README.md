@@ -7,4 +7,5 @@ Compiled on [AMX Mod X 1.10](https://www.amxmodx.org/amxxdrop/1.10/amxmodx-1.10.
 
 # Credits
 Created by ScriptedSnark.
+Thanks tmp64 for model render fix.
 Thanks to  KORD_12.7 for [HL Stocks include](http://aghl.ru/forum/viewtopic.php?f=39&t=59) (Direct link).

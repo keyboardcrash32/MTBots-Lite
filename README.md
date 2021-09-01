@@ -3,7 +3,7 @@
 # MTBots-Lite for AGHL
 
 Attempt to recreate MultiTrainer bots by naz. For AMX Mod X. 
-Compiled on [AMX Mod X 1.10](http://www.amxmodx.org/amxxdrop/1.9/amxmodx-1.9.0-git5263-base-windows.zip) (Direct link)
+Compiled on [AMX Mod X 1.10](https://www.amxmodx.org/amxxdrop/1.10/amxmodx-1.10.0-git5436-base-windows.zip) (Direct link)
 
 # Credits
 Created by ScriptedSnark.

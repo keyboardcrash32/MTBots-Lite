@@ -103,9 +103,9 @@ public MTBot_BotDeath(id) {
 
 public MTBot_Respawn(id)
 {
-	origin_fix[0] = 0
-	origin_fix[1] = 0
-	origin_fix[2] = 0
+	origin_fix[0] = 1000
+	origin_fix[1] = -5000
+	origin_fix[2] = 8100
 	
 	hl_user_spawn(id)
 	get_user_origin(id, origin_resp, 0)

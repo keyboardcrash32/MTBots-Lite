@@ -108,7 +108,7 @@ public YesVote(id)
 		get_user_info(player, "*bot", is_bot, 255)
 		if (str_to_num(is_bot) != 0) {
 			engclient_cmd(players[i], "yes")
-			set_hudmessage(255, 0, 0, -1.0, 0.05, 0, 3.0, 4.0)
+			set_hudmessage(255, 0, 0, -1.0, 0.05, 0, 1.0, 1.0)
 			show_hudmessage(0, "Bot auto-voted agstart !!!")
 		}
 	}
@@ -120,7 +120,7 @@ public MTBot_Remove(id)
 	get_players(players, inum)
 	
 	client_cmd(0, "spk vox/destroyed.wav")
-	set_hudmessage(255, 0, 0, -1.0, 0.05, 0, 3.0, 4.0)
+	set_hudmessage(255, 0, 0, -1.0, 0.05, 0, 1.0, 1.0)
 	show_hudmessage(0, "All bots are removed !!!")
 	
 	for(new i; i < inum; i++) {

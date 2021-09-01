@@ -8,7 +8,7 @@ MADE FOR MOD "ADRENALINE GAMER".    */
 #include <hamsandwich>
 #include <hl>
 
-#define PLUGIN	"Multitrainer Bots Remake"
+#define PLUGIN	"Multitrainer Bots Lite"
 #define AUTHOR	"ScriptedSnark"
 #define VERSION	"1.0"
 
@@ -27,19 +27,6 @@ public plugin_init()
 public plugin_precache()
 {
 	precache_sound("vox/destroyed.wav")
-}
-
-public client_disconnected(id)
-{
-	new players = get_playersnum()
-	
-	get_user_info(id, "*bot", is_bot, 255)
-	if (str_to_num(is_bot) != 0) {
-		if (players < 1)
-		{
-			server_cmd("kick #%i", get_user_userid(id))
-		}
-	}
 }
 
 public MTBot_Make()

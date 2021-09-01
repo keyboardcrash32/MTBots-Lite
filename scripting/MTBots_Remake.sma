@@ -14,6 +14,7 @@ MADE FOR MOD "ADRENALINE GAMER".    */
 
 new is_bot[32]
 new origin_resp[3], origin_fix[3]
+new bot_model[32]
 
 new const VOTE_COMMANDS[][] = {
 	"agstart",
@@ -49,6 +50,11 @@ public plugin_precache()
 	precache_sound("vox/destroyed.wav")
 }
 
+public plugin_cfg()
+{
+	config_load()
+}
+
 public MTBot_Make()
 {
 	new id_bot = engfunc(EngFunc_CreateFakeClient, "MT Bot 1337")
@@ -81,7 +87,7 @@ public MTBot_Make()
 		pev(id_bot, pev_velocity, 320.0)
 		hl_user_spawn(id_bot)
 		engfunc(EngFunc_DropToFloor, id_bot)
-		hl_set_user_team(id_bot, "red")
+		hl_set_user_team(id_bot, bot_model)
 		set_pev(id_bot, pev_effects, (pev(id_bot, pev_effects) | 1 ))
 		set_pev(id_bot, pev_solid, SOLID_BBOX)
 		set_user_rendering(id_bot, kRenderFxGlowShell, 0, 0, 0, kRenderNormal, 100)
@@ -150,4 +156,35 @@ public MTBot_Remove(id)
 			server_cmd("kick #%i", get_user_userid(players[i]))
 		}
 	}
+}
+
+config_load() {		
+	static path[64]
+	get_localinfo("amxx_configsdir", path, charsmax(path))
+	format(path, charsmax(path), "%s/mtbots-lite.ini", path)
+    
+	if (!file_exists(path)) {
+		new error[100]
+		formatex(error, charsmax(error), "Cannot load customization file %s!", path)
+		set_fail_state(error)
+		return
+	}
+    
+	static linedata[128], key[64], value[32]
+	new file = fopen(path, "rt")
+    
+	while (file && !feof(file)) {
+		fgets(file, linedata, charsmax(linedata))
+		replace(linedata, charsmax(linedata), "^n", "")
+       
+		if (!linedata[0] || linedata[0] == '/') continue;
+       
+		strtok(linedata, key, charsmax(key), value, charsmax(value), '=')
+		trim(key)
+		trim(value)
+		
+		if (equal(key, "MODEL"))
+			bot_model = value
+	}
+	if (file) fclose(file)
 }

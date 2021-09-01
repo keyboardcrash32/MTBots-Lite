@@ -13,7 +13,7 @@ MADE FOR MOD "ADRENALINE GAMER".    */
 #define VERSION	"1.0"
 
 new is_bot[32]
-new g_iOrigin[33][3]
+new origin_resp[3], origin_fix[3]
 
 public plugin_init()
 {
@@ -44,40 +44,41 @@ public client_disconnected(id)
 
 public MTBot_Make()
 {
-	new id_bot = engfunc(EngFunc_CreateFakeClient, "MT Bot 1337")
-	if(pev_valid(id_bot)) {
-		engfunc(EngFunc_FreeEntPrivateData, id_bot)
-		dllfunc(MetaFunc_CallGameEntity, "player", id_bot)
-		set_user_info(id_bot, "rate", "3500")
-		set_user_info(id_bot, "cl_updaterate", "25")
-		set_user_info(id_bot, "cl_lw", "1")
-		set_user_info(id_bot, "cl_lc", "1")
-		set_user_info(id_bot, "cl_dlmax", "128")
-		set_user_info(id_bot, "_ah", "0")
-		set_user_info(id_bot, "dm", "0")
-		set_user_info(id_bot, "tracker", "0")
-		set_user_info(id_bot, "friends", "0")
-		set_user_info(id_bot, "*bot", "1" )
-		set_user_info(id_bot, "model", "gordon")
-		set_pev(id_bot, pev_flags, pev( id_bot, pev_flags ) | FL_FAKECLIENT)
-		set_pev(id_bot, pev_colormap, id_bot)
-		set_pev(id_bot, pev_gravity, 1.0)
-		set_pev(id_bot, pev_health, 100)
-		set_pev(id_bot, pev_weapons, 0)
-		set_user_gravity(id_bot, 1.0)
-		dllfunc(DLLFunc_ClientConnect, id_bot, "bot", "127.0.0.1")
-		dllfunc(DLLFunc_ClientPutInServer, id_bot)
-		engfunc(EngFunc_RunPlayerMove, id_bot, Float:{0.0,0.0,0.0}, 0.0, 0.0, 0.0, 0, 0, 76)
-		set_pev(id_bot, pev_velocity, Float:{0.625,-235.5,0.0})
-		engfunc(EngFunc_RunPlayerMove, id_bot, Float:{20.4425,270.4504,0.0}, 250.0, 0.0, 0.0, 0, 8, 10)
-		hl_user_spawn(id_bot)
-		engfunc(EngFunc_DropToFloor, id_bot)
-		pev(id_bot, pev_origin, 1.0);
-		hl_set_user_team(id_bot, "red")
-		set_pev(id_bot, pev_effects, (pev(id_bot, pev_effects) | 1 ))
-		set_pev(id_bot, pev_solid, SOLID_BBOX)
-		set_user_rendering(id_bot, kRenderFxGlowShell, 0, 0, 0, kRenderNormal, 100)
-	}
+    new id_bot = engfunc(EngFunc_CreateFakeClient, "MT Bot 1337")
+    if(pev_valid(id_bot)) {
+        engfunc(EngFunc_FreeEntPrivateData, id_bot)
+        dllfunc(MetaFunc_CallGameEntity, "player", id_bot)
+        set_user_info(id_bot, "rate", "3500")
+        set_user_info(id_bot, "cl_updaterate", "25")
+        set_user_info(id_bot, "cl_lw", "1")
+        set_user_info(id_bot, "cl_lc", "1")
+        set_user_info(id_bot, "cl_dlmax", "128")
+        set_user_info(id_bot, "_ah", "0")
+        set_user_info(id_bot, "dm", "0")
+        set_user_info(id_bot, "tracker", "0")
+        set_user_info(id_bot, "friends", "0")
+        set_user_info(id_bot, "*bot", "1" )
+        set_user_info(id_bot, "model", "gordon")
+        set_pev(id_bot, pev_flags, pev( id_bot, pev_flags ) | FL_FAKECLIENT)
+        set_pev(id_bot, pev_colormap, id_bot)
+        set_pev(id_bot, pev_gravity, 1.0)
+        set_pev(id_bot, pev_health, 100)
+        set_pev(id_bot, pev_weapons, 0)
+        set_user_gravity(id_bot, 1.0)
+        dllfunc(DLLFunc_ClientConnect, id_bot, "bot", "127.0.0.1")
+        dllfunc(DLLFunc_ClientPutInServer, id_bot)
+        engfunc(EngFunc_RunPlayerMove, id_bot, Float:{0.0,0.0,0.0}, 0.0, 0.0, 0.0, 0, 0, 76)
+        set_pev(id_bot, pev_velocity, Float:{0.625,-235.5,0.0})
+        engfunc(EngFunc_RunPlayerMove, id_bot, Float:{20.4425,270.4504,0.0}, 250.0, 0.0, 0.0, 0, 8, 10)
+        pev(id_bot, pev_origin, 1.0)
+        pev(id_bot, pev_velocity, 320.0)
+        hl_user_spawn(id_bot)
+        engfunc(EngFunc_DropToFloor, id_bot)
+        hl_set_user_team(id_bot, "red")
+        set_pev(id_bot, pev_effects, (pev(id_bot, pev_effects) | 1 ))
+        set_pev(id_bot, pev_solid, SOLID_BBOX)
+        set_user_rendering(id_bot, kRenderFxGlowShell, 0, 0, 0, kRenderNormal, 100)
+    }
 }
 
 public MTBot_BotDeath(id) {
@@ -89,7 +90,19 @@ public MTBot_BotDeath(id) {
 
 public MTBot_Respawn(id)
 {
+    origin_fix[0] = 0
+	origin_fix[1] = 0
+	origin_fix[2] = 0
+
 	hl_user_spawn(id)
+	get_user_origin(id, origin_resp, 0)
+	set_task(0.05, "MTBot_FixRender", id)
+	set_user_origin(id, origin_fix)
+}
+
+public MTBot_FixRender(id)
+{
+	set_user_origin(id, origin_resp)
 	engfunc(EngFunc_DropToFloor, id)
 }
 

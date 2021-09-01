@@ -15,12 +15,32 @@ MADE FOR MOD "ADRENALINE GAMER".    */
 new is_bot[32]
 new origin_resp[3], origin_fix[3]
 
+new const VOTE_COMMANDS[][] = {
+	"agstart",
+	"agabort",
+	"mp_timelimit",
+	"ag_spectalk",
+	"tdm",
+	"hlccl",
+	"ffa",
+	"arcade",
+	"sgbow",
+	"agallow",
+	"agnextmap",
+	"agnextmode",
+	"agpause"
+}
+
 public plugin_init()
 {
+	new i 
+
 	register_plugin(PLUGIN, VERSION, AUTHOR)
 	register_clcmd("say /bot", "MTBot_Make")
 	register_clcmd("say /remove", "MTBot_Remove")
-	register_concmd("agstart", "MTBot_AutoVote")
+	for(i = 0; i < sizeof VOTE_COMMANDS; i++) {
+	    register_clcmd(VOTE_COMMANDS[i], "MTBot_AutoVote")
+	}
 	RegisterHam(Ham_Killed, "player", "MTBot_BotDeath", 1); 
 }
 
@@ -109,7 +129,7 @@ public YesVote(id)
 		if (str_to_num(is_bot) != 0) {
 			engclient_cmd(players[i], "yes")
 			set_hudmessage(255, 0, 0, -1.0, 0.05, 0, 1.0, 1.0)
-			show_hudmessage(0, "Bot auto-voted agstart !!!")
+			show_hudmessage(0, "Bot auto-voted!")
 		}
 	}
 }

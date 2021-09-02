@@ -188,7 +188,7 @@ config_load() {
 		trim(value)
 		
 		if (equal(key, "MODEL"))
-			bot_model = value
+		    bot_model = value
 		else if (equal(key, "NAME_BOT"))
 		    bot_name = value
 	}

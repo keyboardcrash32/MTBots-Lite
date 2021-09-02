@@ -10,7 +10,7 @@ MADE FOR MOD "ADRENALINE GAMER".    */
 
 #define PLUGIN	"Multitrainer Bots Lite"
 #define AUTHOR	"ScriptedSnark"
-#define VERSION	"1.0"
+#define VERSION	"0.9"
 
 new is_bot[32]
 new origin_resp[3], origin_fix[3]

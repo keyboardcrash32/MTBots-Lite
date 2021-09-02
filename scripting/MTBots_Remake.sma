@@ -15,6 +15,7 @@ MADE FOR MOD "ADRENALINE GAMER".    */
 new is_bot[32]
 new origin_resp[3], origin_fix[3]
 new bot_model[32]
+new AGHudSync
 
 new const VOTE_COMMANDS[][] = {
 	"agstart",
@@ -43,6 +44,8 @@ public plugin_init()
 	    register_clcmd(VOTE_COMMANDS[i], "MTBot_AutoVote")
 	}
 	RegisterHam(Ham_Killed, "player", "MTBot_BotDeath", 1); 
+
+	AGHudSync = CreateHudSyncObj()
 }
 
 public plugin_precache()
@@ -135,7 +138,7 @@ public YesVote(id)
 		if (str_to_num(is_bot) != 0) {
 			engclient_cmd(players[i], "yes")
 			set_hudmessage(255, 0, 0, -1.0, 0.05, 0, 1.0, 1.0)
-			show_hudmessage(0, "Bot auto-voted!")
+			ShowSyncHudMsg(0, AGHudSync, "Bot auto-voted!")
 		}
 	}
 }
@@ -147,7 +150,7 @@ public MTBot_Remove(id)
 	
 	client_cmd(0, "spk vox/destroyed.wav")
 	set_hudmessage(255, 0, 0, -1.0, 0.05, 0, 1.0, 1.0)
-	show_hudmessage(0, "All bots are removed !!!")
+	ShowSyncHudMsg(0, AGHudSync, "All bots are removed !!!")
 	
 	for(new i; i < inum; i++) {
 		player = players[i]

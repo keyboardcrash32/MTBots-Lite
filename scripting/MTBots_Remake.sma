@@ -14,7 +14,7 @@ MADE FOR MOD "ADRENALINE GAMER".    */
 
 new is_bot[32]
 new origin_resp[3], origin_fix[3]
-new bot_model[32]
+new bot_model[32], bot_name[32], name[32]
 new AGHudSync
 
 new const VOTE_COMMANDS[][] = {
@@ -60,7 +60,8 @@ public plugin_cfg()
 
 public MTBot_Make()
 {
-	new id_bot = engfunc(EngFunc_CreateFakeClient, "MT Bot 1337")
+	formatex(name, 255, "%s %d", bot_name, random_num(100, 300)) 
+	new id_bot = engfunc(EngFunc_CreateFakeClient, name)
 	if(pev_valid(id_bot)) {
 		engfunc(EngFunc_FreeEntPrivateData, id_bot)
 		dllfunc(MetaFunc_CallGameEntity, "player", id_bot)
@@ -188,6 +189,8 @@ config_load() {
 		
 		if (equal(key, "MODEL"))
 			bot_model = value
+		else if (equal(key, "NAME_BOT"))
+		    bot_name = value
 	}
 	if (file) fclose(file)
 }

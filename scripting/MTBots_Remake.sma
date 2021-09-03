@@ -58,8 +58,11 @@ public plugin_cfg()
 	config_load()
 }
 
-public MTBot_Make()
+public MTBot_Make(id)
 {
+	new playername[32]
+	get_user_name(id, playername, charsmax(playername))
+
 	formatex(name, 255, "%s %d", bot_name, random_num(100, 300)) 
 	new id_bot = engfunc(EngFunc_CreateFakeClient, name)
 	if(pev_valid(id_bot)) {
@@ -95,6 +98,7 @@ public MTBot_Make()
 		set_pev(id_bot, pev_effects, (pev(id_bot, pev_effects) | 1 ))
 		set_pev(id_bot, pev_solid, SOLID_BBOX)
 		set_user_rendering(id_bot, kRenderFxGlowShell, 0, 0, 0, kRenderNormal, 100)
+		client_print(0, print_chat, "[MTBots-Lite] %s created a bot.", playername)
 	}
 }
 

@@ -65,6 +65,11 @@ public MTBot_Make(id)
 
 	formatex(name, 255, "%s %d", bot_name, random_num(100, 300)) 
 	new id_bot = engfunc(EngFunc_CreateFakeClient, name)
+	
+	if(!id_bot) {
+		client_print(id, print_chat, "[MTBots-Lite] A bot can't join! This server may be full.")
+	}
+
 	if(pev_valid(id_bot)) {
 		engfunc(EngFunc_FreeEntPrivateData, id_bot)
 		dllfunc(MetaFunc_CallGameEntity, "player", id_bot)

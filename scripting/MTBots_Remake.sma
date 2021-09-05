@@ -60,6 +60,13 @@ public plugin_cfg()
 
 public MTBot_Make(id)
 {
+
+	if (hl_get_user_spectator(id))
+	{
+		client_print(id, print_chat, "[MTBots-Lite] You can't create a bot when you are a spectator!")
+		return PLUGIN_HANDLED;
+	}
+
 	new playername[32]
 	get_user_name(id, playername, charsmax(playername))
 
@@ -102,8 +109,19 @@ public MTBot_Make(id)
 		set_pev(id_bot, pev_effects, (pev(id_bot, pev_effects) | 1 ))
 		set_pev(id_bot, pev_solid, SOLID_BBOX)
 		set_user_rendering(id_bot, kRenderFxGlowShell, 0, 0, 0, kRenderNormal, 100)
-		client_print(0, print_chat, "[MTBots-Lite] %s^^0 created a bot.", playername)
+
+		if (hl_get_user_spectator(id_bot))
+		{
+			client_print(id, print_chat, "[MTBots-Lite] You can't create a bot when match is started!")
+			server_cmd("kick #%i", get_user_userid(id_bot))
+		}
+		else
+		{
+		    client_print(0, print_chat, "[MTBots-Lite] %s^^0 created a bot.", playername)
+		}
 	}
+
+	return PLUGIN_CONTINUE;
 }
 
 public MTBot_BotDeath(id) {

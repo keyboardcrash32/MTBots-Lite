@@ -127,7 +127,7 @@ public MTBot_Make(id)
 public MTBot_BotDeath(id) {
 	get_user_info(id, "*bot", is_bot, 255)
 	if (str_to_num(is_bot) != 0) {
-		set_task(1.0, "MTBot_Respawn", id)
+		set_task(1.3, "MTBot_Respawn", id)
 	}
 }
 

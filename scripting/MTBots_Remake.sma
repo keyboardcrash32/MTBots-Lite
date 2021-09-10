@@ -22,6 +22,13 @@ new const VOTE_COMMANDS[][] = {
 	"agabort",
 	"mp_timelimit",
 	"ag_spectalk",
+	"tdm2",
+	"tdm3",
+	"arena",
+	"lms",
+	"lts",
+	"ffa",
+	"instagib",
 	"tdm",
 	"hlccl",
 	"ffa",
@@ -126,8 +133,8 @@ public MTBot_Make(id)
 
 public MTBot_BotDeath(id) {
 	get_user_info(id, "*bot", is_bot, 255)
-	if (str_to_num(is_bot) != 0) {
-		set_task(1.3, "MTBot_Respawn", id)
+	if (str_to_num(is_bot) != 0 && !hl_get_user_spectator(id)) {
+		set_task(1.1, "MTBot_Respawn", id)
 	}
 }
 

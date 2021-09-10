@@ -27,7 +27,6 @@ new const VOTE_COMMANDS[][] = {
 	"arena",
 	"lms",
 	"lts",
-	"ffa",
 	"instagib",
 	"tdm",
 	"hlccl",

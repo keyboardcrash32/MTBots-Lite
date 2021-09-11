@@ -3,7 +3,7 @@ MADE FOR MOD "ADRENALINE GAMER".    */
 
 #include <amxmodx>
 #include <amxmisc>
-#include <fakemeta>
+#include <engine>
 #include <fun>
 #include <hamsandwich>
 #include <hl>
@@ -15,41 +15,17 @@ MADE FOR MOD "ADRENALINE GAMER".    */
 new is_bot[32]
 new origin_resp[3], origin_fix[3]
 new bot_model[32], bot_name[32], name[32]
+new players[32], inum, player
 new AGHudSync
 
-new const VOTE_COMMANDS[][] = {
-	"agstart",
-	"agabort",
-	"mp_timelimit",
-	"ag_spectalk",
-	"tdm2",
-	"tdm3",
-	"arena",
-	"lms",
-	"lts",
-	"instagib",
-	"tdm",
-	"hlccl",
-	"ffa",
-	"arcade",
-	"sgbow",
-	"agallow",
-	"agnextmap",
-	"agnextmode",
-	"agpause"
-}
 
 public plugin_init()
 {
-	new i 
-
 	register_plugin(PLUGIN, VERSION, AUTHOR)
 	register_clcmd("say /bot", "MTBot_Make")
 	register_clcmd("say /remove", "MTBot_Remove")
-	for(i = 0; i < sizeof VOTE_COMMANDS; i++) {
-	    register_clcmd(VOTE_COMMANDS[i], "MTBot_AutoVote")
-	}
-	RegisterHam(Ham_Killed, "player", "MTBot_BotDeath", 1); 
+	RegisterHam(Ham_Killed, "player", "MTBot_BotDeath", 1);
+	register_message(get_user_msgid("Vote"), "AutoVote")
 
 	AGHudSync = CreateHudSyncObj()
 }
@@ -155,30 +131,29 @@ public MTBot_FixRender(id)
 	engfunc(EngFunc_DropToFloor, id)
 }
 
-public MTBot_AutoVote(id)
+public AutoVote(id)
 {
-	set_task(0.2, "YesVote")
-}
-
-public YesVote(id)
-{
-	new players[32], inum, player
 	get_players(players, inum)
+	set_hudmessage(255, 0, 0, -1.0, 0.05, 0, 1.0, 1.0)
+	ShowSyncHudMsg(0, AGHudSync, "Bot auto-voted!")
 	
 	for(new i; i < inum; i++) {
 		player = players[i]
-		get_user_info(player, "*bot", is_bot, 255)
+
+		if(!is_user_connected(players[i]))
+            return PLUGIN_HANDLED;
+
+		get_user_info(players[i], "*bot", is_bot, 255)
 		if (str_to_num(is_bot) != 0) {
-			engclient_cmd(players[i], "yes")
-			set_hudmessage(255, 0, 0, -1.0, 0.05, 0, 1.0, 1.0)
-			ShowSyncHudMsg(0, AGHudSync, "Bot auto-voted!")
-		}
+		    engclient_cmd(players[i], "yes")
+		}  
 	}
+
+	return PLUGIN_CONTINUE;
 }
 
 public MTBot_Remove(id)
 {
-	new players[32], inum, player
 	get_players(players, inum)
 	
 	client_cmd(0, "spk vox/destroyed.wav")

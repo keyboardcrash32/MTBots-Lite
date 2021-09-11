@@ -20,7 +20,7 @@ Thanks to KORD_12.7 for HL Stocks include (hl.inc), tmp64 for model render fix a
 
 #define PLUGIN	"Multitrainer Bots Lite"
 #define AUTHOR	"ScriptedSnark"
-#define VERSION	"0.9"
+#define VERSION	"0.9a"
 
 new is_bot[32]
 new origin_resp[3], origin_fix[3]

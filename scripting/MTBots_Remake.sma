@@ -16,7 +16,6 @@ new is_bot[32]
 new origin_resp[3], origin_fix[3]
 new bot_model[32], bot_name[32], name[32]
 new players[32], inum, player
-new AGHudSync
 
 
 public plugin_init()
@@ -26,8 +25,6 @@ public plugin_init()
 	register_clcmd("say /remove", "MTBot_Remove")
 	RegisterHam(Ham_Killed, "player", "MTBot_BotDeath", 1);
 	register_message(get_user_msgid("Vote"), "AutoVote")
-
-	AGHudSync = CreateHudSyncObj()
 }
 
 public plugin_precache()
@@ -134,8 +131,6 @@ public MTBot_FixRender(id)
 public AutoVote(id)
 {
 	get_players(players, inum)
-	set_hudmessage(255, 0, 0, -1.0, 0.05, 0, 1.0, 1.0)
-	ShowSyncHudMsg(0, AGHudSync, "Bot auto-voted!")
 	
 	for(new i; i < inum; i++) {
 		player = players[i]
@@ -155,10 +150,8 @@ public AutoVote(id)
 public MTBot_Remove(id)
 {
 	get_players(players, inum)
-	
+
 	client_cmd(0, "spk vox/destroyed.wav")
-	set_hudmessage(255, 0, 0, -1.0, 0.05, 0, 1.0, 1.0)
-	ShowSyncHudMsg(0, AGHudSync, "All bots are removed !!!")
 	
 	for(new i; i < inum; i++) {
 		player = players[i]

@@ -1,5 +1,15 @@
-/* MULTITRAINER BOTS LITE BY SCRIPTEDSNARK
-MADE FOR MOD "ADRENALINE GAMER".    */
+/*
+
+Multitrainer Bots Lite by ScriptedSnark
+https://github.com/ScriptedSnark/MTBots-Lite
+
+Adrenaline Gamer plugin.
+
+For AMX Mod X 1.10.
+
+Thanks to KORD_12.7 for HL Stocks include (hl.inc), tmp64 for model render fix advice.
+
+*/
 
 #include <amxmodx>
 #include <amxmisc>

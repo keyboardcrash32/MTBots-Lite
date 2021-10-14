@@ -20,7 +20,7 @@ Thanks to KORD_12.7 for HL Stocks include (hl.inc), tmp64 for model render fix a
 
 #define PLUGIN	"Multitrainer Bots Lite"
 #define AUTHOR	"ScriptedSnark"
-#define VERSION	"0.9a"
+#define VERSION	"0.9b"
 
 new is_bot[32]
 new origin_resp[3], origin_fix[3]
@@ -34,6 +34,7 @@ public plugin_init()
 	register_clcmd("say /bot", "MTBot_Make")
 	register_clcmd("say /remove", "MTBot_Remove")
 	RegisterHam(Ham_Killed, "player", "MTBot_BotDeath", 1);
+	RegisterHam(Ham_Spawn, "player", "MTBot_AGRespawn", 1);
 	register_message(get_user_msgid("Vote"), "AutoVote")
 }
 
@@ -117,6 +118,14 @@ public MTBot_BotDeath(id) {
 	get_user_info(id, "*bot", is_bot, 255)
 	if (str_to_num(is_bot) != 0 && !hl_get_user_spectator(id)) {
 		set_task(1.1, "MTBot_Respawn", id)
+	}
+}
+
+public MTBot_AGRespawn(id)
+{
+    get_user_info(id, "*bot", is_bot, 255)
+	if (str_to_num(is_bot) != 0) {
+	    engfunc(EngFunc_DropToFloor, id)
 	}
 }
 

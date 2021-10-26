@@ -35,6 +35,7 @@ public plugin_init()
 	register_clcmd("say /remove", "MTBot_Remove")
 	RegisterHam(Ham_Killed, "player", "MTBot_BotDeath", 1);
 	RegisterHam(Ham_Spawn, "player", "MTBot_AGRespawn", 1);
+	RegisterHam(Ham_TakeDamage, "player", "BotTakeDamage");
 	register_message(get_user_msgid("Vote"), "AutoVote")
 }
 

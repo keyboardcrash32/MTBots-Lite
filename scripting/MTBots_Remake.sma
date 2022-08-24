@@ -51,19 +51,6 @@ public plugin_cfg()
 
 public get_bot_spawn(id)
 {
-	new NameBot[32]
-	new entlist[1]
-	new ent = -1
-	new count_spawn = 1
-	get_user_name(id, NameBot, 31)
-	find_sphere_class(id, "info_player_deathmatch", 50.0, entlist, sizeof entlist);
-
-	while(entlist[0] != (ent = find_ent_by_class(ent, "info_player_deathmatch")))
-	{
-		count_spawn++
-	}
-
-	client_print(0, print_chat, "[MTBots-Lite] %s spawned at %d spawn", NameBot, count_spawn);
 }
 
 public MTBot_Make(id)
@@ -134,11 +121,6 @@ public MTBot_Make(id)
 
 public BotTakeDamage(victim, inflictor, attacker, Float:dmg, dmgbits)
 {
-	new BotDmgTaker[32]
-	get_user_name(victim, BotDmgTaker, 31)
-
-	if(is_user_bot(victim))
-		client_print(0, print_chat, "[MTBots-Lite] %s take %.1f damage", BotDmgTaker, dmg);
 }
 
 public MTBot_BotDeath(id) {

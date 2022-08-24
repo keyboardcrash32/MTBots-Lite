@@ -35,7 +35,6 @@ public plugin_init()
 	register_clcmd("say /remove", "MTBot_Remove")
 	RegisterHam(Ham_Killed, "player", "MTBot_BotDeath", 1);
 	RegisterHam(Ham_Spawn, "player", "MTBot_AGRespawn", 1);
-	RegisterHam(Ham_TakeDamage, "player", "BotTakeDamage");
 	register_message(get_user_msgid("Vote"), "AutoVote")
 }
 
@@ -49,12 +48,9 @@ public plugin_cfg()
 	config_load()
 }
 
-public get_bot_spawn(id)
-{
-}
-
 public MTBot_Make(id)
 {
+
 	if (hl_get_user_spectator(id))
 	{
 		client_print(id, print_chat, "[MTBots-Lite] You can't create a bot when you are a spectator!")
@@ -111,16 +107,11 @@ public MTBot_Make(id)
 		}
 		else
 		{
-			client_print(0, print_chat, "[MTBots-Lite] %s^^0 created a bot.", playername)
-			get_bot_spawn(id_bot)
+		    client_print(0, print_chat, "[MTBots-Lite] %s^^0 created a bot.", playername)
 		}
 	}
 
 	return PLUGIN_CONTINUE;
-}
-
-public BotTakeDamage(victim, inflictor, attacker, Float:dmg, dmgbits)
-{
 }
 
 public MTBot_BotDeath(id) {
@@ -133,7 +124,7 @@ public MTBot_BotDeath(id) {
 public MTBot_AGRespawn(id)
 {
     get_user_info(id, "*bot", is_bot, 255)
-    if (str_to_num(is_bot) != 0) {
+	if (str_to_num(is_bot) != 0) {
 	    engfunc(EngFunc_DropToFloor, id)
 	}
 }
@@ -145,7 +136,6 @@ public MTBot_Respawn(id)
 	origin_fix[2] = 8100
 	
 	hl_user_spawn(id)
-	get_bot_spawn(id)
 	get_user_origin(id, origin_resp, 0)
 	set_task(0.05, "MTBot_FixRender", id)
 	set_user_origin(id, origin_fix)
